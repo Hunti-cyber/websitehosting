@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Happy Coin Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+           
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            background-color: rgb(232, 235, 75);
+            background-image: url('happywitharm.jpeg');
+        }
+        h1 {
+            text-align: center;
+            color: #32d7ec;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: auto;
+            background: linear-gradient(90deg, #cb54f0, #7ce453);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(95, 92, 92, 0.1);
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question h3 {
+            margin: 0;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin-bottom: 10px;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e68900;
+        }
+        #result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background:linear-gradient(90deg, #f4f75f, #ec67e1);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav a, nav button {
+            color: black;
+            font-weight: bold;
+            padding: 10px 20px;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        nav a:hover, nav button:hover {
+            background: #bcdf22;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        
+        <a href="web 6.html">HAPPY</a>
+        
+       
+      </nav>
+
+    <h1>Happy Coin Quiz</h1>
+    <div class="quiz-container">
+        <div id="quiz"></div>
+        <button id="submit">Submit Quiz</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        
+     const questionsPool = [
+
+            { question: "What is Happy Coin?", options: ["A memecoin", "A stock", "A bank", "A game"], answer: 0 },
+            { question: "What powers Happy Coin?", options: ["Smiles", "Transactions", "Votes", "All of the above"], answer: 3 },
+            { question: "What makes Happy special?", options: ["Community-driven", "High transaction fees", "Fixed value", "Centralized governance"], answer: 0 },
+            { question: "What kind of events does Happy support?", options: ["Charity", "Rewards", "Giveaways", "All of the above"], answer: 3 },
+            { question: "How does Happy increase in value?", options: ["Deflationary mechanics", "High fees", "Less users", "No community"], answer: 0 },
+            { question: "What is Happy's mission?", options: ["Spread joy", "Lose value", "Discourage transactions", "Raise fees"], answer: 0 },
+            { question: "What is the tagline of Happy?", options: ["Life’s better when you’re Happy", "Invest with joy", "Crypto for profit", "Meme to the moon"], answer: 0 },
+            { question: "What kind of fees does Happy have?", options: ["High fees", "Low fees", "No fees", "Hidden fees"], answer: 1 },
+            { question: "What backs Happy Coin?", options: ["Technology", "Community", "Banks", "Shares"], answer: 1 },
+            { question: "What kind of gains does Happy Coin promise?", options: ["Boring gains", "Fun AND gains", "No gains", "Only losses"], answer: 1 },
+            { question: "What makes Happy a deflationary token?", options: ["Tokens are burned", "New tokens are minted", "Fixed supply", "No effect on supply"], answer: 0 },
+            { question: "What is the total supply of Happy tokens?", options: ["10 Million", "100 Million", "1 Billion", "10 Billion"], answer: 2 },
+            { question: "How can Happy holders earn rewards?", options: ["Mining", "Staking and farming", "Trading daily", "Offline storage"], answer: 1 },
+            { question: "How are decisions made in the Happy ecosystem?", options: ["Developers decide", "Community voting", "Random selection", "AI decision-making"], answer: 1 },
+            { question: "What is HODL in crypto?", options: ["Hold On for Dear Life", "Highly Optimized Digital Ledger", "High Output Daily Liquidity", "Happy Over Digital Limits"], answer: 0 },
+            { question: "Why are Happy's transaction fees low?", options: ["Encourages microtransactions", "Reduces energy use", "Supports mass adoption", "All of the above"], answer: 3 },
+            { question: "Which meme best represents Happy?", options: ["A coin with a happy face", "This is fine dog", "Pepe the Frog", "Distracted boyfriend"], answer: 0 },
+            { question: "If Happy had a mascot, what would it be?", options: ["Laughing coin", "Dancing banana", "Grinning doge", "Winking frog"], answer: 0 },
+            { question: "What happens when you send a Happy transaction?", options: ["Confetti on screen", "Meme appears in wallet", "Party notification sent", "All of the above"], answer: 3 },
+            { question: "What’s the best way to celebrate buying Happy?", options: ["Post a meme", "Buy more Happy", "Tell friends", "Dance"], answer: 3 },
+            { question: "What flavor best represents Happy?", options: ["Cotton candy", "Spicy chili", "Sour lemon", "Umami"], answer: 0 },
+            { question: "Which phrase would a Happy holder say before a transaction?", options: ["To the moon!", "Diamond hands!", "Let's spread the joy!", "Send it!"], answer: 2 },
+            { question: "What is the benefit of staking Happy?", options: ["Passive income", "VIP membership", "Become NFT artist", "Reduce gas fees"], answer: 0 },
+            { question: "What does APY stand for in staking?", options: ["Annual Profit Yield", "Automatic Payment Yield", "Annual Percentage Yield", "Advanced Passive Yield"], answer: 2 },
+            { question: "How does Happy farming work?", options: ["Planting trees", "Locking tokens", "Mining with GPUs", "Playing games"], answer: 1 },
+            { question: "What is planned for Phase 3 of Happy’s roadmap?", options: ["NFTs", "Metaverse & Play-to-Earn", "Meme marketplace", "Physical stores"], answer: 1 },
+            { question: "What is the goal of Phase 4 in Happy’s roadmap?", options: ["Mars mission", "Global payment system", "Social network", "VR concerts"], answer: 1 },
+            { question: "What ensures Happy transactions are secure?", options: ["Blockchain transparency", "AI fraud detection", "Community monitoring", "All of the above"], answer: 3 },
+            { question: "Why is governance important in Happy?", options: ["Community involvement", "Fair decision-making", "Prevents centralization", "All of the above"], answer: 3 },
+            { question: "What should you never do with your Happy private keys?", options: ["Store securely", "Share online", "Keep backups", "Memorize them"], answer: 1 },
+            { question: "Best way to spread awareness about Happy?", options: ["Make memes", "Educate friends", "Join community events", "All of the above"], answer: 3 },
+            { question: "If you could create a Happy NFT, what would it be?", options: ["Dancing meme", "Futuristic logo", "Pixelated emoji", "3D animation"], answer: 0 },
+            { question: "If Happy had an official holiday, what would it be called?", options: ["Happy Day", "Meme Fest", "Joy Celebration", "Crypto Carnival"], answer: 0 },
+            { question: "What would you do if Happy's price skyrocketed?", options: ["HODL", "Buy a Lambo", "Reinvest", "Throw a party"], answer: 3 },
+            { question: "If Happy was a superhero, what power would it have?", options: ["Spreading joy", "Multiplying wealth", "Turning negativity into memes", "Infinite transactions"], answer: 0 },
+            { question: "Best advice for a new Happy holder?", options: ["HODL", "Engage with community", "Learn about safety", "All of the above"], answer: 3 }
+
+        ];
+
+        //The code below is responsible to generate 10 random question each time.
+        const selectedQuestions = [];
+        while (selectedQuestions.length < 10) {
+            const randomIndex = Math.floor(Math.random() * questionsPool.length);
+            if (!selectedQuestions.includes(questionsPool[randomIndex])) {   
+                selectedQuestions.push(questionsPool[randomIndex]);
+            }
+        }
+
+        const quizContainer = document.getElementById("quiz");
+
+        
+        selectedQuestions.forEach((q, index) => {
+            const questionDiv = document.createElement("div");
+            questionDiv.classList.add("question");
+            questionDiv.innerHTML = `
+                <h3>Question ${index + 1}: ${q.question}</h3>
+                <ul class="options">
+                    ${q.options.map((opt, i) => `<li><label><input type="radio" name="q${index}" value="${i}"> ${opt}</label></li>`).join("")}
+                </ul>
+            `;
+            quizContainer.appendChild(questionDiv);
+        });
+
+        
+        document.getElementById("submit").addEventListener("click", () => {
+            let score = 0;
+            selectedQuestions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selectedOption && parseInt(selectedOption.value) === q.answer) {
+                    score++;
+                }
+            });
+            document.getElementById("result").innerText = `You scored ${score} out of 10!`;
+        });
+    </script>
+</body>
+</html>
